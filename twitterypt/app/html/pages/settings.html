@@ -1,0 +1,75 @@
+<ons-page id="settings-page" ng-controller="SettingsCtrl">
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button>Back</ons-back-button>
+        </div>
+        <div class="center">Settings</div>
+        <div class="right">
+            <ons-toolbar-button component="button/save-task" ng-click="openConfirmSave()">
+                <ons-if platform="android">
+                    <ons-icon icon="md-save"></ons-icon>
+                </ons-if>
+                <ons-if platform="ios other">
+                    Save
+                </ons-if>
+            </ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+    <ons-list>
+        <ons-list-header>Twitter Api Settings</ons-list-header>
+        <ons-list-item modifier="nodivider">
+            <ons-if platform="ios other" class="left left-label">Consumer Key</ons-if>
+            <div class="center">
+                <ons-input type="text" placeholder="Consumer Key" float ng-model="settings.twitter_consumer_key"></ons-input>
+            </div>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider">
+            <ons-if platform="ios other" class="left left-label">Consumer Secret</ons-if>
+            <div class="center">
+                <ons-input placeholder="Consumer Secret" float ng-model="settings.twitter_consumer_secret"></ons-input>
+            </div>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider">
+            <ons-if platform="ios other" class="left left-label">Access Token Key</ons-if>
+            <div class="center">
+                <ons-input placeholder="Access Token Key" float ng-model="settings.twitter_access_token_key"></ons-input>
+            </div>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider">
+            <ons-if platform="ios other" class="left left-label">Access Token Secret</ons-if>
+            <div class="center">
+                <ons-input placeholder="Access Token Secret" float ng-model="settings.twitter_access_token_secret"></ons-input>
+            </div>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider">
+            <div class="left left-label">Use Proxy to connect api?</div>
+            <div class="center">
+                <ons-switch ng-model="settings.twitter_use_proxy"></ons-switch>
+            </div>
+        </ons-list-item>
+    </ons-list>
+    <ons-list>
+        <ons-list-header>RSA Keys Settings</ons-list-header>
+        <ons-list-item modifier="nodivider">
+            <ons-button ng-click="onUploadPublicKeyClick()" class="mar-right5">
+                <ons-icon icon="md-upload"></ons-icon> Upload Public Key
+            </ons-button>
+            <ons-button ng-click="generateNewRsaKeys()">
+                <ons-icon icon="md-refresh"></ons-icon> Generate New
+            </ons-button>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider">
+            <ons-if platform="ios" class="left left-label">Public Key</ons-if>
+            <div class="center">
+                <textarea rows="5" class="textarea" ng-model="settings.public_key" placeholder="Public Key"></textarea>
+            </div>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider">
+            <ons-if platform="ios" class="left left-label">Private Key</ons-if>
+            <div class="center">
+                <textarea rows="5" class="textarea" ng-model="settings.private_key" placeholder="Private Key"></textarea>
+            </div>
+        </ons-list-item>
+    </ons-list>
+
+</ons-page>

@@ -1,0 +1,28 @@
+<ons-page id="friends-tab">
+    <ons-pull-hook ng-action="friendsPullRefreshLoad($done)" var="friendsPullRefreshLoader" height="100px" threshold-height="150px">
+        <span ng-switch="friendsPullRefreshLoader.state">
+            <span ng-switch-when="initial"><ons-icon size="35px" icon="md-long-arrow-down"></ons-icon></span>
+            <span ng-switch-when="preaction"><ons-icon size="35px" icon="md-long-arrow-up"></ons-icon></span>
+            <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="md-spinner"></ons-icon></span>
+        </span>
+    </ons-pull-hook>
+    <ons-list-title>
+        <span ng-hide="refreshing">Pull to refresh</span>
+        <ons-icon size="35px" spin="true" icon="md-spinner" ng-show="refreshing"></ons-icon>
+    </ons-list-title>
+    <ons-list>
+        <ons-list-item tappable ng-repeat="f in friends | orderBy:['-joined', 'name']" ng-click="onSelectItem(f, $event)">
+            <div class="left">
+                <img class="list-item__thumbnail" ng-src="{{f.profile_image_url}}" err-src="resources/images/avatar-error.jpg" >
+            </div>
+            <span class="list-item__title">{{f.name}}</span><span class="list-item__subtitle">@{{f.screen_name}}</span>
+            <span class="right">
+                <ons-icon class="message-icon" icon="md-comment-text" ng-hide="!f.public_key_url"></ons-icon>
+                <ons-icon class="invite-icon" icon="md-account-add" ng-show="!f.public_key_url"></ons-icon>
+            </span>
+        </ons-list-item>
+        <ons-list-item ng-show="!friends.length">
+            <em>No Friend!</em>
+        </ons-list-item>
+    </ons-list>
+</ons-page>

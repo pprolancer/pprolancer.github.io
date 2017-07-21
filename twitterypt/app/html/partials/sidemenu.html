@@ -1,0 +1,80 @@
+<ons-page>
+    <ons-if platform="android">
+        <div class="menu-logo">
+            <img class="profile-picture" ng-src="{{profile.profile_image_url|profileImageOrig|default:'resources/images/avatar.jpg'}}" err-src="resources/images/avatar-error.jpg" />
+            <h3 class="name">{{profile.name || 'N/A'}}</h3>
+            <small class="username">@{{profile.screen_name || 'N/A'}}</small>
+        </div>
+    </ons-if>
+    <ons-if platform="ios other">
+        <div class="menu-logo ios">
+            <img class="profile-picture ios" ng-src="{{profile.profile_image_url|profileImageOrig|default:'resources/images/avatar.jpg'}}" err-src="resources/images/avatar-error.jpg" />
+            <h3 class="name ios">{{profile.name || 'N/A'}}</h3>
+            <small class="username ios">@{{profile.screen_name || 'N/A'}}</small>
+        </div>
+    </ons-if>
+
+    <ons-list-title>Menu</ons-list-title>
+    <ons-list>
+        <ons-list-item tappable>
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="md-accounts-add"></ons-icon>
+            </div>
+            <div class="center">
+                New Group
+            </div>
+        </ons-list-item>
+        <ons-list-item tappable ng-click="pushPage('app/html/pages/settings.html')">
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="md-settings"></ons-icon>
+            </div>
+            <div class="center">
+                Settings
+            </div>
+        </ons-list-item>
+        <ons-list-item tappable ng-click="logout()" ng-hide="!profile.name">
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="md-power"></ons-icon>
+            </div>
+            <div class="center">
+                Logout
+            </div>
+        </ons-list-item>
+        <ons-list-item tappable ng-click="login()" ng-show="!profile.name">
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="md-square-right"></ons-icon>
+            </div>
+            <div class="center">
+                Login
+            </div>
+        </ons-list-item>
+    </ons-list>
+
+    <ons-list-title>Links</ons-list-title>
+    <ons-list>
+        <ons-list-item tappable>
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="md-account-add"></ons-icon>
+            </div>
+            <div class="center">
+                Invite Friends
+            </div>
+        </ons-list-item>
+        <ons-list-item tappable>
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="md-info"></ons-icon>
+            </div>
+            <div class="center">
+                About
+            </div>
+        </ons-list-item>
+        <ons-list-item tappable>
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="md-help"></ons-icon>
+            </div>
+            <div class="center">
+                FAQ
+            </div>
+        </ons-list-item>
+    </ons-list>
+</ons-page>

@@ -1,0 +1,25 @@
+<ons-page id="messages-tab">
+    <ons-pull-hook ng-action="messagesPullRefreshLoad($done)" var="messagesPullRefreshLoader" height="100px" threshold-height="150px">
+        <span ng-switch="messagesPullRefreshLoader.state">
+            <span ng-switch-when="initial"><ons-icon size="35px" icon="md-long-arrow-down"></ons-icon></span>
+            <span ng-switch-when="preaction"><ons-icon size="35px" icon="md-long-arrow-up"></ons-icon></span>
+            <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="md-spinner"></ons-icon></span>
+        </span>
+    </ons-pull-hook>
+    <ons-list-title>
+        <span ng-hide="refreshing">Pull to refresh</span>
+        <ons-icon size="35px" spin="true" icon="md-spinner" ng-show="refreshing"></ons-icon>
+    </ons-list-title>
+    <ons-list>
+        <ons-list-item tappable ng-repeat="m in messages | orderBy:'-created_at'" ng-class="{'unread-message': !m.read }" ng-click="pushPage('app/html/pages/view_message.html', {data: {message: m}}, $event)">
+            <div class="left">
+                <img class="list-item__thumbnail" ng-src="{{m.user.profile_image_url}}" err-src="resources/images/avatar-error.jpg">
+            </div>
+            <span class="list-item__title">{{m.user.name}}</span><span class="list-item__subtitle truncate">{{m.message}}</span>
+            <small class="right date-humanize">{{m.created_at|humanizeDate}}</small>
+        </ons-list-item>
+        <ons-list-item ng-show="!messages.length">
+            <em>No Message!</em>
+        </ons-list-item>
+    </ons-list>
+</ons-page>

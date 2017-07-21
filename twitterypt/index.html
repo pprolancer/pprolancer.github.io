@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="twitterypt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+
+    <title>Twitterypt App</title>
+    <!-- Cordova reference, this is added to your app when it's built. -->
+    <script src="cordova.js"></script>
+    <script src="resources/libs/node_rsa.min.js"></script>
+    <script src="resources/libs/codebird.js"></script>
+    <script src="resources/libs/depot.js"></script>
+    <script src="resources/libs/moment.min.js"></script>
+    <script src="resources/libs/BigInteger.min.js"></script>
+    <script src="resources/libs/onsenui.min.js"></script>
+    <script src="resources/libs/angular.min.js"></script>
+    <script src="resources/libs/angular-route.min.js"></script>
+    <script src="resources/libs/angular-animate.min.js"></script>
+    <script src="resources/libs/jquery.min.js"></script>
+    <script src="resources/libs/angular-user-settings.min.js"></script>
+    <script src="resources/libs/angular-onsenui.min.js"></script>
+    <!-- Autostyling -->
+    <script>
+        var uiPlatform = 'android',
+            forcePlatform = null; // a var to force use an specific platform. this will ignore platform auto detection
+        if (typeof cordova !== 'undefined') {
+            if (cordova.platformId === 'browser') {
+                if (/platform=ios/.test(window.location.search)) {
+                    uiPlatform = 'ios';
+                }
+            } else {
+                uiPlatform = cordova.platformId;
+            }
+        } else {
+            if (/platform=ios/.test(window.location.search)) {
+                uiPlatform = 'ios';
+            }
+        }
+        ons.platform.select(forcePlatform || uiPlatform);
+    </script>
+    <!-- App -->
+    <script src="app/js/app.js"></script>
+    <script src="app/js/controllers.js"></script>
+    <script src="app/js/services.js"></script>
+    <script src="app/js/filters.js"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="resources/css/onsenui.css">
+    <link rel="stylesheet" href="resources/css/onsen-css-components.css">
+    <link href="resources/css/fonts.css" rel="stylesheet">
+    <link href="resources/css/style.css" rel="stylesheet">
+</head>
+
+<body ng-controller="MainCtrl">
+    <ons-splitter>
+        <ons-splitter-side id="sidemenu" page="app/html/partials/sidemenu.html" side="left" width="220px" collapse swipeable>
+        </ons-splitter-side>
+        <ons-splitter-content>
+            <ons-navigator var="navi">
+                <ons-page>
+                    <ons-toolbar>
+                        <div class="left">
+                            <ons-toolbar-button ng-click="openMenu()">
+                                <ons-icon icon="md-menu"></ons-icon>
+                            </ons-toolbar-button>
+                        </div>
+                        <div class="center">Twitterypt</div>
+                        <div class="right">
+                            <ons-if platform="ios other">
+                                <ons-toolbar-button ng-disabled="!profile.id" ng-click="pushPage('app/html/pages/new_message.html')" component="button/new-task"><ons-icon icon="md-comment-text"></ons-icon> New</ons-toolbar-button>
+                            </ons-if>
+                        </div>
+                    </ons-toolbar>
+                    <ons-if platform="android">
+                        <ons-fab ng-disabled="!profile.id" ng-click="pushPage('app/html/pages/choose_recipient.html')" position="right bottom" component="button/new-task">
+                            <ons-icon icon="md-comment-text"></ons-icon>
+                        </ons-fab>
+                    </ons-if>
+                    <!-- Auto-positioned Tabbar: top on Android, bottom on iOS/other. -->
+                    <ons-tabbar var="tabbar" position="auto" ng-hide="!profile.id">
+                        <ons-tab icon="md-email" label="Messages" page="app/html/partials/messages.html" badge="{{unReadMessages || ''}}" active="true" ng-controller="MessagesListCtrl"></ons-tab>
+                        <ons-tab icon="md-accounts-list" label="Friends" page="app/html/partials/friends.html" ng-controller="FriendsListCtrl"></ons-tab>
+                        <ons-tab icon="md-accounts" label="Groups" page="app/html/partials/groups.html"></ons-tab>
+                    </ons-tabbar>
+                    <section ng-show="!profile.id" class="not-login-page">
+                        <ons-button modifier="large" ng-click="login()">
+                            <ons-icon icon="md-key"></ons-icon> Please Login
+                        </ons-button>
+                    </section>
+                </ons-page>
+            </ons-navigator>
+        </ons-splitter-content>
+
+    </ons-splitter>
+</body>
+
+</html>

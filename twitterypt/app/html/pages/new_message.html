@@ -1,0 +1,33 @@
+<ons-page id="new-message-page" ng-controller="NewMessageCtrl">
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button>Back</ons-back-button>
+        </div>
+        <div class="center">Send Message</div>
+        <div class="right">
+            <ons-toolbar-button component="button/save-task" ng-click="sendMessage()" ng-disabled="disabledSend()">
+                <ons-if platform="android">
+                    <ons-icon icon="md-mail-send"></ons-icon>
+                </ons-if>
+                <ons-if platform="ios other">
+                    Send
+                </ons-if>
+            </ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+    <ons-list>
+        <ons-list-header>Send Secure Message To:</ons-list-header>
+        <ons-list-item>
+            <div class="left">
+                <img class="list-item__thumbnail" ng-src="{{newMessage.to.profile_image_url}}" err-src="resources/images/avatar-error.jpg" >
+            </div>
+            <span class="list-item__title">{{newMessage.to.name}}</span><span class="list-item__subtitle">@{{newMessage.to.screen_name}}</span>
+        </ons-list-item>
+
+        <ons-list-item modifier="nodivider">
+            <div class="center">
+                <textarea rows="10" class="textarea" ng-model="newMessage.message" placeholder="Enter Message ..."></textarea>
+            </div>
+        </ons-list-item>
+    </ons-list>
+</ons-page>
