@@ -185,7 +185,9 @@ app.controller('SettingsCtrl', function ($scope, $rootScope, $userSettings, TWCr
             var keys = ['twitter_consumer_key', 'twitter_consumer_secret', 'twitter_access_token_key',
             'twitter_access_token_secret'];
             for(var i = 0; i < keys.length; i++) {
-                if (($scope.settings[keys[i]] !== $userSettings.get(keys[i]))) {
+                var value = ($scope.settings[keys[i]] || '').trim();
+                $scope.settings[keys[i]] = value;
+                if (value !== $userSettings.get(keys[i])) {
                     needsVerifyAccount = true;
                     break;
                 }
